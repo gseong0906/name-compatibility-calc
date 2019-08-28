@@ -29,24 +29,24 @@ public class NameCompat {
 	}
 
 	// 이름점 순서를 A X B Y C Z 라고 할 때 A + 6B + C 값으로 X + Y 를 도출
-	int xpyMap[][] = { { 5, 10, 15 }, { 8, 13, 18 }, { 6, 11, 16 }, { 4, 9, 14 }, { 7, 12, 17 } };
+	int xpyMap[][] = { { 0, 5, 10, 15 }, { 3, 8, 13, 18 }, { 1, 6, 11, 16 }, { 4, 9, 14 }, { 2, 7, 12, 17 } };
 
 	private int[][] getBestStroke(int[] stroke) {
 		int xpyList[] = xpyMap[(9 - (stroke[0] + 6 * stroke[1] + stroke[2]) % 10) / 2];
 		int count = 0;
 		for (int xpy : xpyList) {
-			if (xpy > 11)
+			if (xpy > 9)
 				count += 19 - xpy;
 			else
-				count += xpy - 3;
+				count += xpy + 1;
 		}
 		int strokeList[][] = new int[count][3];
 		int index = 0;
 		int tmp;
 		for (int xpy : xpyList) {
-			for (int i = 2; i <= 9; i++) {
+			for (int i = 0; i <= 9; i++) {
 				tmp = xpy - i;
-				if (tmp <= 9 && tmp >= 2) {
+				if (tmp <= 9 && tmp >= 0) {
 					strokeList[index][0] = i;
 					strokeList[index][1] = tmp;
 					strokeList[index][2] = 9 - (4 * (stroke[1] + stroke[2]) + i + 6 * tmp) % 10;
